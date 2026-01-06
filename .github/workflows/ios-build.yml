@@ -1,0 +1,5 @@
+name: iOS Build (React Native)
+
+on:
+  push:
+    branches: [ main ]
