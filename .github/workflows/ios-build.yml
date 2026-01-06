@@ -24,10 +24,13 @@ jobs:
         run: npm install
 
       # 4. Install CocoaPods
-      - name: Install Pods
+      - name: Clean Pods cache and install
         run: |
           cd ios
-          pod install
+          pod cache clean --all
+          rm -rf Pods
+          rm -rf ~/Library/Caches/CocoaPods
+          pod install --repo-update
 
       # 5. Build iOS (NO signing, simulator only)
       - name: Build iOS (no signing)
