@@ -27,16 +27,16 @@ jobs:
       - name: Clean Pods cache and install
         run: |
           cd ios
-          pod cache clean --all
-          rm -rf Pods
-          rm -rf ~/Library/Caches/CocoaPods
+          pod deintegrate
+          rm -rf Pods Podfile.lock
           pod install --repo-update
 
       # 5. Build iOS (NO signing, simulator only)
       - name: Build iOS (no signing)
         run: |
+          cd ios
           xcodebuild \
-            -workspace ios/iosGithubAction.xcworkspace \
+            -workspace iosGithubAction.xcworkspace \
             -scheme iosGithubAction \
             -sdk iphonesimulator \
             -configuration Debug \
