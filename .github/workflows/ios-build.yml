@@ -3,3 +3,7 @@ name: iOS Build (React Native)
 on:
   push:
     branches: [ main ]
+
+jobs:
+  build-ios:
+    runs-on: macos-latest
