@@ -7,3 +7,35 @@ on:
 jobs:
   build-ios:
     runs-on: macos-latest
+
+    steps:
+      # 1. Checkout source
+      - name: Checkout source
+        uses: actions/checkout@v4
+
+      # 2. Setup Node.js (PHẢI là 16)
+      - name: Setup Node
+        uses: actions/setup-node@v4
+        with:
+          node-version: 16
+
+      # 3. Install JS dependencies
+      - name: Install JS dependencies
+        run: npm install
+
+      # 4. Install CocoaPods
+      - name: Install Pods
+        run: |
+          cd ios
+          pod install
+
+      # 5. Build iOS (NO signing, simulator only)
+      - name: Build iOS (no signing)
+        run: |
+          xcodebuild \
+            -workspace ios/iosGithubAction.xcworkspace \
+            -scheme iosGithubAction \
+            -sdk iphonesimulator \
+            -configuration Debug \
+            build \
+            CODE_SIGNING_ALLOWED=NO
